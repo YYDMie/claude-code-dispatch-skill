@@ -110,6 +110,14 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\install.ps1 -Force
 
 旧技能会先备份为带时间戳的目录，再安装新版本。
 
+备份默认保存到：
+
+```text
+%USERPROFILE%\.codex\skill-backups
+```
+
+这样不会在 `skills` 目录中产生可能被误识别的重复技能。可使用 `-BackupRoot` 指定其他备份位置。
+
 ### 手动安装
 
 将以下目录：

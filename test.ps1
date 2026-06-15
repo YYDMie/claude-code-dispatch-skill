@@ -29,6 +29,7 @@ if (Test-Path -LiteralPath $testRoot) {
 
 $work = Join-Path $testRoot "work"
 $installRoot = Join-Path $testRoot "skills"
+$backupRoot = Join-Path $testRoot "backups"
 New-Item -ItemType Directory -Path $work -Force | Out-Null
 
 try {
@@ -66,13 +67,21 @@ try {
         throw "Ultracode bootstrap is missing."
     }
 
-    & .\install.ps1 -DestinationRoot $installRoot | Out-Null
+    & .\install.ps1 -DestinationRoot $installRoot -BackupRoot $backupRoot | Out-Null
     if (-not (Test-Path -LiteralPath (Join-Path $installRoot "claude-code-dispatch\SKILL.md"))) {
         throw "Installer did not copy the skill."
     }
 
+    & .\install.ps1 -DestinationRoot $installRoot -BackupRoot $backupRoot -Force | Out-Null
+    $backups = @(Get-ChildItem -LiteralPath $backupRoot -Directory)
+    if ($backups.Count -ne 1 -or
+        -not (Test-Path -LiteralPath (Join-Path $backups[0].FullName "SKILL.md"))) {
+        throw "Force install did not create a valid external backup."
+    }
+
     Write-Host "PREPARE_ONLY_OK"
     Write-Host "INSTALL_OK"
+    Write-Host "FORCE_BACKUP_OK"
 } finally {
     if (Test-Path -LiteralPath $testRoot) {
         Remove-Item -LiteralPath $testRoot -Recurse -Force
