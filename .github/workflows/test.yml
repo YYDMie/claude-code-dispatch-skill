@@ -1,0 +1,14 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  powershell:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run repository self-test
+        shell: powershell
+        run: .\test.ps1

@@ -1,0 +1,10 @@
+.claude-dispatch/
+*.out.log
+*.err.log
+*.transcript.txt
+*.pid.txt
+*.state.json
+*.prompt.md
+*.source.prompt.md
+.DS_Store
+Thumbs.db

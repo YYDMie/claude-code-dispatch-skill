@@ -1,0 +1,4 @@
+interface:
+  display_name: "Claude Code Dispatch"
+  short_description: "Dispatch and validate Claude Code tasks"
+  default_prompt: "Use $claude-code-dispatch to launch this scoped task in direct or ultracode mode, track completion evidence, and prepare independent acceptance."
